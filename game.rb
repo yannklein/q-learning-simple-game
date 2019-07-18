@@ -81,13 +81,13 @@ class Game
     @map_size[1].times do |y|
       map_line = @map_size[0].times.map do |x|
         if @player.x == x && @player.y == y
-          'P'
+          '[P]'
         elsif @cheese_x[0] == x && @cheese_x[1] == y
-          'C'
+          '[C]'
         elsif @pits.include?([x, y])
-          'O'
+          ' O '
         else
-          '-'
+          ' - '
         end
       end
       map << "#{map_line.join}\n"
