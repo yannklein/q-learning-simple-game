@@ -69,11 +69,44 @@ class QLearningPlayer
     return @actions[@action_taken_index]
   end
 
-
-  def print_table
-    @q_table.length.times do |i|
-      puts @q_table[i].to_s
+  def q_table_rounded
+    @q_table.map do |proba_array|
+      proba_array.map { |proba| proba.round(2) }
     end
   end
 
+  def draw_q_table
+    # Compute map
+    map = []
+    @game.map_size[1].times do |y|
+      #Top of the line
+      map_line = @game.map_size[0].times.map do |x|
+        table_index = x + (y * @game.map_size[0])
+
+        if @q_table[table_index][0] == @q_table[table_index].max
+          direction = '←'
+        elsif @q_table[table_index][1] == @q_table[table_index].max
+          direction = '→'
+        elsif @q_table[table_index][2] == @q_table[table_index].max
+          direction = '⬆'
+        elsif @q_table[table_index][3] == @q_table[table_index].max
+          direction = '↓'
+        end
+
+        if @game.player.x == x && @game.player.y == y
+          "[P#{direction}"
+        elsif @game.cheese_x[0] == x && @game.cheese_x[1] == y
+          '[C]'
+        elsif @game.pits.include?([x, y])
+          ' O '
+        else
+          " #{direction} "
+        end
+      end
+      map << "#{map_line.join}\n"
+    end
+    map.each do |line|
+      puts line
+    end
+  end
 end

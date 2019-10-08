@@ -1,5 +1,5 @@
 class Game
-  attr_accessor :score, :map_size, :player, :winning_sentence
+  attr_accessor :score, :map_size, :player, :winning_sentence, :cheese_x, :pits
   def initialize player
     @run = 0
     @map_size = [12, 12] # x and y
@@ -7,6 +7,7 @@ class Game
     @player = player
     @advanced = false
     @winning_sentence = ""
+    @cheese_x = [10, 10] # x and y
     reset
     @pits = create_pits
 
@@ -17,7 +18,6 @@ class Game
   def reset
     @player.x = @start_position[0]
     @player.y = @start_position[1]
-    @cheese_x = [10, 10] # x and y
     @pit_x = [0, 0] # x and y
     @score = 0
     @run += 1
@@ -44,8 +44,8 @@ class Game
     if @score >= 5
       @winning_sentence += "\nRun #{@run}: You win in #{@moves} moves!"
     else
-      @winning_sentence += "Game over"
-      puts "Game over"
+      #game over case"
+      @winning_sentence += ""
     end
     return @winning_sentence
   end

@@ -28,7 +28,7 @@ puts 'Reaching [C] gives you 1 point, falling in a O takes you 1 point!'
 puts 'Ready?'
 print "[press a key to PLAY the game]\r"
 STDIN.getch
-system "clear"
+system 'clear'
 g.player = human
 puts "\r#{g.run}"
 print 'Now the AI'
@@ -43,10 +43,13 @@ g.player = robot
 g.winning_sentence = ''
 robot.game = g
 result = ''
-100.times do
+500.times do
   result = g.run
   g.reset
 end
 
 # p.print_table
 puts result
+puts ""
+puts "AI's prefered direction per position"
+robot.draw_q_table
