@@ -18,13 +18,9 @@ class QLearningPlayer
   def initialize_q_table
     # Initialize q_table states by actions
     map_amount_of_spot = @game.map_size[0] * @game.map_size[1]
-    @q_table = Array.new(map_amount_of_spot){ Array.new(@actions.length) }
-
-    # Initialize to random values
-    map_amount_of_spot.times do |s|
-      @actions.length.times do |a|
-        @q_table[s][a] = @random.rand
-      end
+    @q_table = []
+    map_amount_of_spot.times do
+      @q_table << [@random.rand, @random.rand, @random.rand, @random.rand]
     end
   end
 
@@ -68,12 +64,6 @@ class QLearningPlayer
 
     # Take (and return!) action
     @actions[@action_taken_index]
-  end
-
-  def q_table_rounded
-    @q_table.map do |proba_array|
-      proba_array.map { |proba| proba.round(2) }
-    end
   end
 
   def draw_q_table

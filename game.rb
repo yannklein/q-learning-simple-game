@@ -38,28 +38,37 @@ class Game
   def run
     # Run if the player is an AI
     if @player.type == "robot"
+      print "Now the AI"
+      3.times do
+        sleep(0.5)
+        print '.'
+      end
+      system 'clear'
       # Let the AI train until it wins 100 times
       until @score >= 100
         draw
         # When it wins, reset the game and keep a track
-        if gameloop == "win"
-          @winning_sentence += "\nRun #{@run}: You win in #{@moves} moves!"
-          draw
+        case gameloop
+        when "win"
+          @winning_sentence = "\nRun #{@run}: The AI wins in #{@moves} moves!"
           reset
-          @moves = 0
+        when "lose"
+          reset
         end
         @moves += 1
       end
       # After the training let AI play one more time slowly
-      puts "\nThe AI best shot [press a key]"
+      puts @winning_sentence
+      puts "\nLet's review the AI best shot [press a key]"
       STDIN.getch
       draw until gameloop(true) == "win"
+      reset
     # Run if the player is a Human
     else
       # Play the game until the human reach the cheese
       until @score >= 1
         draw
-        gameloop
+        reset if gameloop == "lose"
         @moves += 1
       end
       draw
@@ -85,7 +94,10 @@ class Game
       @score += 1
       return "win"
     end
-    @score -= 1 if @pits.include?([@player.x, @player.y])
+    if @pits.include?([@player.x, @player.y])
+      @score -= 1
+      return "lose"
+    end
     :nothing
   end
 
