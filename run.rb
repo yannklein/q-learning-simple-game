@@ -30,7 +30,7 @@ print "[press a key to PLAY the game]\r"
 STDIN.getch
 system 'clear'
 g.player = human
-puts "\r#{g.run}"
+# puts "\r#{g.run}"
 print 'Now the AI'
 sleep(0.5)
 print '.'
@@ -42,11 +42,7 @@ puts '.'
 g.player = robot
 g.winning_sentence = ''
 robot.game = g
-result = ''
-500.times do
-  result = g.run
-  g.reset
-end
+result = g.run
 
 # p.print_table
 puts result
